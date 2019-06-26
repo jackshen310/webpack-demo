@@ -6,11 +6,12 @@ const MyPlugin = require('./plugins/MyPlugin');
 
 module.exports = {
     entry: {
-        index: "./scripts/index.js" //入口文件，若不配置webpack4将自动查找src目录下的index.js文件
+        index: "./scripts/index.jsx" //入口文件，若不配置webpack4将自动查找src目录下的index.js文件
     },
     output: {
         filename: "[name].bundle.[hash].js",//输出文件名，[name]表示入口文件js名
-        path: path.join(__dirname, "dist")//输出文件路径
+        path: path.join(__dirname, "dist"),//输出文件路径
+        chunkFilename: "[name].bundle.[hash].js"
     },
     // ResolveLoader 用于配置 Webpack 如何寻找 Loader。 
     // 默认情况下只会去 node_modules 目录下寻找，为了让 Webpack 加载放在本地项目中的 Loader 需要修改 resolveLoader.module
@@ -20,6 +21,11 @@ module.exports = {
     module: {
         // 链式loader执行顺序从右至左或者自下而上
         rules: [
+            { // react loader
+                test: /\.(js|jsx)?$/,
+                use: ["babel-loader"],
+                exclude: /node_modules/
+            },
             {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader', {
