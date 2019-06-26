@@ -7,8 +7,22 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Program",
-            "program": "${workspaceFolder}/node_modules/webpack/bin/webpack.js"
+            "name": "Launch Dev",
+            "program": "${workspaceFolder}/node_modules/webpack-dev-server/bin/webpack-dev-server.js",
+            "args": [
+                "--mode",
+                "development"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Launch Start",
+            "program": "${workspaceFolder}/node_modules/webpack/bin/webpack.js",
+            "args": [
+                "--mode",
+                "development"
+            ]
         }
     ]
 }
