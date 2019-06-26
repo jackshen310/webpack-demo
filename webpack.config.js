@@ -11,12 +11,16 @@ module.exports = {
     output: {
         filename: "[name].bundle.[hash].js",//输出文件名，[name]表示入口文件js名
         path: path.join(__dirname, "dist"),//输出文件路径
-        chunkFilename: "[name].bundle.[hash].js"
+        chunkFilename: "[name].bundle.[hash].js",
+        publicPath: "/" // 指定资源路径，所有的按需加载的资源都从根路径开始找， https://webpack.js.org/guides/public-path/
     },
     // ResolveLoader 用于配置 Webpack 如何寻找 Loader。 
     // 默认情况下只会去 node_modules 目录下寻找，为了让 Webpack 加载放在本地项目中的 Loader 需要修改 resolveLoader.module
     resolveLoader: {
         modules: ['node_modules', 'loaders'] // 在./loaders目录下查找自定义loader
+    },
+    resolve: { // import时可以忽略文件后缀，例如 import App from './App', 而不需要 './App.jsx'
+        extensions: ['.js', '.jsx']
     },
     module: {
         // 链式loader执行顺序从右至左或者自下而上
