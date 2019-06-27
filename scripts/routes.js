@@ -1,16 +1,17 @@
-import LazyLoad from './LazyLoad';
+import { lazy, Suspense } from 'react';
+
 export default [
   {
     path: '/A',
-    component: LazyLoad(() => import('./a')),
+    component: lazy(() => import('./a')),
   },
   {
     path: '/C',
-    component: LazyLoad(() => import('./c')),
+    component: lazy(() => import('./c')),
     routes: [
       {
         path: '/C/D',
-        component: LazyLoad(() => import('./d')),
+        component: lazy(() => import('./d')),
       },
     ],
   },
