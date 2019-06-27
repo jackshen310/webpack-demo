@@ -3,15 +3,15 @@ import { lazy, Suspense } from 'react';
 export default [
   {
     path: '/A',
-    component: lazy(() => import('./a')),
+    component: lazy(() => import(/* webpackChunkName:"a"*/ './a')),
   },
   {
     path: '/C',
-    component: lazy(() => import('./c')),
+    component: lazy(() => import(/* webpackChunkName:"c"*/ './c')),
     routes: [
       {
         path: '/C/D',
-        component: lazy(() => import('./d')),
+        component: lazy(() => import(/* webpackChunkName:"d"*/ './d')),
       },
     ],
   },

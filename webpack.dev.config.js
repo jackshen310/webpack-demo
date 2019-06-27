@@ -6,6 +6,7 @@ const MyPlugin = require('./plugins/MyPlugin');
 const config = require('./config/dev');
 
 module.exports = merge(baseWebpackConfig, {
+  mode: 'development',
   plugins: [
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify(config.mode),

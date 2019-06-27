@@ -6,6 +6,7 @@ const baseWebpackConfig = require('./webpack.base.config');
 const config = require('./config/dev');
 
 module.exports = merge(baseWebpackConfig, {
+  mode: 'production',
   plugins: [
     new CleanWebpackPlugin(), // 删除dist目录
     new webpack.DefinePlugin({
