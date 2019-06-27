@@ -1,7 +1,9 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin'); //引入html-webpack-plugin
+const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // 使用参考：https://www.npmjs.com/package/mini-css-extract-plugin
 
+console.log('dddd', process.env.NODE_ENV);
 module.exports = {
   entry: {
     index: './scripts/index.jsx', //入口文件，若不配置webpack4将自动查找src目录下的index.js文件
@@ -31,28 +33,21 @@ module.exports = {
         exclude: /node_modules/,
       },
       {
-        test: /\.css$/,
+        test: /\.(sa|sc|c)ss$/,
         use: [
-          'style-loader',
+          {
+            loader: MiniCssExtractPlugin.loader, // 替换style-loader
+            options: {
+              hmr: process.env.NODE_ENV === 'development',
+              reloadAll: true,
+            },
+          },
           'css-loader',
           {
+            // 自定义loader
             loader: 'my-loader',
             options: {
               arg: 'test',
-            },
-          },
-        ],
-      },
-      {
-        test: /\.scss$/,
-        // SCSS 文件的处理顺序为先 sass-loader 再 css-loader 再 style-loader
-        use: [
-          'style-loader',
-          {
-            loader: 'css-loader',
-            // 给 css-loader 传入配置项
-            options: {
-              minimize: true,
             },
           },
           'sass-loader',
@@ -65,6 +60,12 @@ module.exports = {
     new HtmlWebpackPlugin({
       filename: 'index.html', //输出文件名
       template: './index.html', // 以当前目录下的index.html文件为模板生成dist/index.html文件
+    }),
+    new MiniCssExtractPlugin({
+      // Options similar to the same options in webpackOptions.output
+      // both options are optional
+      filename: '[name].css',
+      chunkFilename: '[id].css',
     }),
     // new NameAllModulesPlugin(),
   ],

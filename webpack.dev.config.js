@@ -8,9 +8,9 @@ const config = require('./config/dev');
 module.exports = merge(baseWebpackConfig, {
   mode: 'development',
   plugins: [
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(config.mode),
-    }),
+    // new webpack.DefinePlugin({
+    //   'process.env.NODE_ENV': JSON.stringify(config.mode),
+    // }),
     new webpack.HotModuleReplacementPlugin(), // 热更新，热更新不是刷新
     new MyPlugin(),
   ],

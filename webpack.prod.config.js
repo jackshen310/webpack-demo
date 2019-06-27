@@ -9,8 +9,8 @@ module.exports = merge(baseWebpackConfig, {
   mode: 'production',
   plugins: [
     new CleanWebpackPlugin(), // 删除dist目录
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': JSON.stringify(config.mode),
-    }),
+    // new webpack.DefinePlugin({
+    //   'process.env.NODE_ENV': JSON.stringify(config.mode),
+    // }),
   ],
 });
