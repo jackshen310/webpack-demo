@@ -11,6 +11,7 @@ export default class App extends Component {
   render() {
     return (
       <div>
+        this is {process.env.NODE_ENV} mode <br />
         <Router>
           <div>
             <Suspense fallback={this.fallback()}>
