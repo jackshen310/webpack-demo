@@ -11,7 +11,7 @@ module.exports = {
   output: {
     filename: '[name].bundle.[hash].js', //输出文件名，[name]表示入口文件js名
     path: path.join(__dirname, 'dist'), //输出文件路径
-    chunkFilename: '[name].bundle.[hash].js',
+    chunkFilename: '[name].bundle.[chunkhash].js', // chunkhash是根据具体每一个模块文件自己的的内容包括它的依赖计算所得的hash，所以某个文件的改动只会影响它本身的hash，不会影响其它文件。
     publicPath: '/', // 指定资源路径，所有的按需加载的资源都从根路径开始找， https://webpack.js.org/guides/public-path/
   },
   // ResolveLoader 用于配置 Webpack 如何寻找 Loader。
@@ -74,6 +74,8 @@ module.exports = {
       context: path.join(__dirname, '.', 'dll'),
       manifest: require('./dll/manifest.json'),
     }),
+    // https://www.cnblogs.com/zhishaofei/p/8590627.html
+    new webpack.HashedModuleIdsPlugin(),
     // new NameAllModulesPlugin(),
   ],
   // 参数说明：https://imweb.io/topic/5b66dd601402769b60847149
