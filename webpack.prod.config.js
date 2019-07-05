@@ -7,6 +7,7 @@ const config = require('./config/dev');
 
 module.exports = merge(baseWebpackConfig, {
   mode: 'production',
+  devtool: 'cheap-module-source-map',
   plugins: [
     new CleanWebpackPlugin(), // 删除dist目录
     // new webpack.DefinePlugin({

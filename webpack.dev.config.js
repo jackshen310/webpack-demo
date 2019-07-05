@@ -7,6 +7,7 @@ const config = require('./config/dev');
 
 module.exports = merge(baseWebpackConfig, {
   mode: 'development',
+  devtool: 'cheap-module-eval-source-map', // sourceMap https://blog.csdn.net/liwusen/article/details/79414508
   plugins: [
     // new webpack.DefinePlugin({
     //   'process.env.NODE_ENV': JSON.stringify(config.mode),
