@@ -67,6 +67,13 @@ module.exports = {
       filename: '[name].css',
       chunkFilename: '[id].css',
     }),
+    new webpack.BannerPlugin({
+      banner: 'hash:[hash], chunkhash:[chunkhash], name:[name], filebase:[filebase], query:[query], file:[file]',
+    }),
+    new webpack.DllReferencePlugin({
+      context: path.join(__dirname, '.', 'dll'),
+      manifest: require('./dll/manifest.json'),
+    }),
     // new NameAllModulesPlugin(),
   ],
   // 参数说明：https://imweb.io/topic/5b66dd601402769b60847149
