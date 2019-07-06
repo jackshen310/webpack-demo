@@ -5,13 +5,15 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // 使用参考
 
 console.log('dddd', process.env.NODE_ENV);
 module.exports = {
+  // 高级用法参考：http://webpack.wuhaolin.cn/2%E9%85%8D%E7%BD%AE/2-1Entry.html
   entry: {
     index: './scripts/index.jsx', //入口文件，若不配置webpack4将自动查找src目录下的index.js文件
   },
+  // http://webpack.wuhaolin.cn/2%E9%85%8D%E7%BD%AE/2-2Output.html
   output: {
-    filename: '[name].bundle.[hash].js', //输出文件名，[name]表示入口文件js名
+    filename: '[name].[hash:8].js', //输出文件名，[name]表示入口文件js名
     path: path.join(__dirname, 'dist'), //输出文件路径
-    chunkFilename: '[name].bundle.[chunkhash].js', // chunkhash是根据具体每一个模块文件自己的的内容包括它的依赖计算所得的hash，所以某个文件的改动只会影响它本身的hash，不会影响其它文件。
+    chunkFilename: '[name].[chunkhash:8].js', // chunkhash是根据具体每一个模块文件自己的的内容包括它的依赖计算所得的hash，所以某个文件的改动只会影响它本身的hash，不会影响其它文件。
     publicPath: '/', // 指定资源路径，所有的按需加载的资源都从根路径开始找， https://webpack.js.org/guides/public-path/
   },
   // ResolveLoader 用于配置 Webpack 如何寻找 Loader。
@@ -22,6 +24,9 @@ module.exports = {
   resolve: {
     // import时可以忽略文件后缀，例如 import App from './App', 而不需要 './App.jsx'
     extensions: ['.js', '.jsx'],
+    alias: {
+      components: path.join(__dirname, './components'),
+    },
   },
   module: {
     // 链式loader执行顺序从右至左或者自下而上
@@ -34,6 +39,7 @@ module.exports = {
       },
       {
         test: /\.(sa|sc|c)ss$/,
+        exclude: /node_modules/,
         use: [
           {
             loader: MiniCssExtractPlugin.loader, // 替换style-loader
