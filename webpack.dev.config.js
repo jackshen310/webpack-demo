@@ -15,12 +15,27 @@ module.exports = merge(baseWebpackConfig, {
     new webpack.HotModuleReplacementPlugin(), // 热更新，热更新不是刷新
     new MyPlugin(),
   ],
+  profile: true, // 是否捕捉 Webpack 构建的性能信息，用于分析什么原因导致构建性能不佳
+  // http://webpack.wuhaolin.cn/2%E9%85%8D%E7%BD%AE/2-6DevServer.html
   devServer: {
     inline: true, //打包后加入一个websocket客户端
     hot: true, //热加载
     contentBase: path.resolve(__dirname, 'dist'), //开发服务运行时的文件根目录
-    host: 'localhost', //主机地址
+    host: '0.0.0.0', //主机地址
     port: config.port, //端口号
     compress: true, //开发服务器是否启动gzip等压缩
+    historyApiFallback: true,
+  },
+  // http://webpack.wuhaolin.cn/2%E9%85%8D%E7%BD%AE/2-7%E5%85%B6%E5%AE%83%E9%85%8D%E7%BD%AE%E9%A1%B9.html
+  watchOptions: {
+    // 不监听的文件或文件夹，支持正则匹配
+    // 默认为空
+    ignored: /node_modules/,
+    // 监听到变化发生后会等300ms再去执行动作，防止文件更新太快导致重新编译频率太高
+    // 默认为 300ms
+    aggregateTimeout: 300,
+    // 判断文件是否发生变化是通过不停的去询问系统指定文件有没有变化实现的
+    // 默认每隔1000毫秒询问一次
+    poll: 1000,
   },
 });
