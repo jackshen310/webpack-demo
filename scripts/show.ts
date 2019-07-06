@@ -1,7 +1,7 @@
 import { isFunction } from 'lodash';
-const show = str => {
+const show = (str: string | Function) => {
   if (isFunction(str)) {
-    console.log(str());
+    console.log((str as Function)());
   } else {
     console.log(str);
   }
