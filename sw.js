@@ -38,6 +38,7 @@ self.addEventListener('fetch', function(event) {
 
 // 新 Service Workers 线程取得控制权后，将会触发其 activate 事件
 self.addEventListener('activate', function(event) {
+  console.log('service workers activate');
   event.waitUntil(
     caches.keys().then(function(cacheNames) {
       return Promise.all(
