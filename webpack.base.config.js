@@ -33,8 +33,8 @@ module.exports = {
     alias: {
       components: path.join(__dirname, './components'),
     },
-    // 只采用 main 字段作为入口文件描述字段，以减少搜索步骤
-    mainFields: ['main'],
+    // 针对 Npm 中的第三方模块优先采用 jsnext:main 中指向的 ES6 模块化语法的文件
+    mainFields: ['jsnext:main', 'browser', 'main'],
   },
   module: {
     // 链式loader执行顺序从右至左或者自下而上

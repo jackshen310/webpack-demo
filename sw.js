@@ -1,11 +1,11 @@
 // 当前缓存版本的唯一标识符，用当前时间代替
-var cacheKey = new Date().toISOString();
+const cacheKey = new Date().toISOString();
 
 // 当前缓存白名单，在新脚本的 install 事件里将使用白名单里的 key
-var cacheWhitelist = [cacheKey];
+const cacheWhitelist = [cacheKey];
 
 // 需要被缓存的文件的 URL 列表
-var cacheFileList = global.serviceWorkerOption.assets;
+let cacheFileList = global.serviceWorkerOption.assets;
 cacheFileList = cacheFileList.filter(item => {
   return !item.includes('hot-update');
 });

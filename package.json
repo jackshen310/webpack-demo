@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_ENV=production webpack --config webpack.prod.config.js",
+    "start": "NODE_ENV=production webpack --config webpack.prod.config.js  --display-used-exports --optimize-minimize",
     "dev": "NODE_ENV=development webpack-dev-server --config webpack.dev.config.js",
     "dev2": "node webpack.dev.server.js",
     "dll": "NODE_ENV=production webpack --config webpack.dll.config.js"

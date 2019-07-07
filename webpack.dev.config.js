@@ -22,7 +22,7 @@ module.exports = merge(baseWebpackConfig, {
   profile: true, // 是否捕捉 Webpack 构建的性能信息，用于分析什么原因导致构建性能不佳
   // http://webpack.wuhaolin.cn/2%E9%85%8D%E7%BD%AE/2-6DevServer.html
   devServer: {
-    inline: true, //打包后加入一个websocket客户端
+    inline: false, //打包后加入一个websocket客户端
     hot: true, //热加载
     contentBase: path.resolve(__dirname, 'dist'), //开发服务运行时的文件根目录
     host: '0.0.0.0', //主机地址
