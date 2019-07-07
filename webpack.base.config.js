@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin'); //引入html-webpack-plugin
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // 使用参考：https://www.npmjs.com/package/mini-css-extract-plugin
+const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 
 console.log('dddd', process.env.NODE_ENV);
 module.exports = {
@@ -88,6 +89,12 @@ module.exports = {
     }),
     // https://www.cnblogs.com/zhishaofei/p/8590627.html
     new webpack.HashedModuleIdsPlugin(),
+    // http://webpack.wuhaolin.cn/3%E5%AE%9E%E6%88%98/3-14%E6%9E%84%E5%BB%BA%E7%A6%BB%E7%BA%BF%E5%BA%94%E7%94%A8.html
+    new ServiceWorkerWebpackPlugin({
+      // 自定义的 sw.js 文件所在路径
+      // ServiceWorkerWebpackPlugin 会把文件列表注入到生成的 sw.js 中
+      entry: path.join(__dirname, 'sw.js'),
+    }),
     // new NameAllModulesPlugin(),
   ],
   // 参数说明：https://imweb.io/topic/5b66dd601402769b60847149
