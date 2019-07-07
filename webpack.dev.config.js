@@ -3,6 +3,7 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const baseWebpackConfig = require('./webpack.base.config');
 const MyPlugin = require('./plugins/MyPlugin');
+const AutoRunElectronPlugin = require('./plugins/AutoRunElectronPlugin');
 const config = require('./config/dev');
 
 module.exports = merge(baseWebpackConfig, {
@@ -14,6 +15,9 @@ module.exports = merge(baseWebpackConfig, {
     // }),
     new webpack.HotModuleReplacementPlugin(), // 热更新，热更新不是刷新
     new MyPlugin(),
+    // http://webpack.wuhaolin.cn/3%E5%AE%9E%E6%88%98/3-12%E6%9E%84%E5%BB%BAElectron%E5%BA%94%E7%94%A8.html
+    // setInterval(() => document.querySelector('.gitbook-plugin-modal').style.width = 0, 1000)
+    new AutoRunElectronPlugin(),
   ],
   profile: true, // 是否捕捉 Webpack 构建的性能信息，用于分析什么原因导致构建性能不佳
   // http://webpack.wuhaolin.cn/2%E9%85%8D%E7%BD%AE/2-6DevServer.html

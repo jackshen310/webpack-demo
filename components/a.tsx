@@ -1,4 +1,4 @@
-import style from './a.css';
+import './a.css';
 import React from 'react';
 
 export default class A extends React.Component {
