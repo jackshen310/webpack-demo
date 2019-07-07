@@ -4,6 +4,11 @@ const HtmlWebpackPlugin = require('html-webpack-plugin'); //引入html-webpack-p
 const MiniCssExtractPlugin = require('mini-css-extract-plugin'); // 使用参考：https://www.npmjs.com/package/mini-css-extract-plugin
 const ServiceWorkerWebpackPlugin = require('serviceworker-webpack-plugin');
 
+// http://webpack.wuhaolin.cn/4%E4%BC%98%E5%8C%96/4-3%E4%BD%BF%E7%94%A8HappyPack.html
+const HappyPack = require('happypack');
+// 构造出共享进程池，进程池中包含5个子进程
+const happyThreadPool = HappyPack.ThreadPool({ size: 5 });
+
 console.log('dddd', process.env.NODE_ENV);
 module.exports = {
   // 高级用法参考：http://webpack.wuhaolin.cn/2%E9%85%8D%E7%BD%AE/2-1Entry.html
@@ -28,6 +33,8 @@ module.exports = {
     alias: {
       components: path.join(__dirname, './components'),
     },
+    // 只采用 main 字段作为入口文件描述字段，以减少搜索步骤
+    mainFields: ['main'],
   },
   module: {
     // 链式loader执行顺序从右至左或者自下而上
@@ -35,7 +42,8 @@ module.exports = {
       {
         // react loader
         test: /\.(js|jsx)?$/,
-        use: ['babel-loader'],
+        // 把对 .js 文件的处理转交给 id 为 babel 的 HappyPack 实
+        use: ['happypack/loader?id=babel'],
         exclude: /node_modules/,
       },
       // ts-loader http://webpack.wuhaolin.cn/3%E5%AE%9E%E6%88%98/3-2%E4%BD%BF%E7%94%A8TypeScript%E8%AF%AD%E8%A8%80.html
@@ -94,6 +102,15 @@ module.exports = {
       // 自定义的 sw.js 文件所在路径
       // ServiceWorkerWebpackPlugin 会把文件列表注入到生成的 sw.js 中
       entry: path.join(__dirname, 'sw.js'),
+    }),
+    new HappyPack({
+      // 用唯一的标识符 id 来代表当前的 HappyPack 是用来处理一类特定的文件
+      id: 'babel',
+      // 如何处理 .js 文件，用法和 Loader 配置中一样
+      loaders: ['babel-loader?cacheDirectory'],
+      // 使用共享进程池中的子进程去处理任务
+      threadPool: happyThreadPool,
+      // ... 其它配置项
     }),
     // new NameAllModulesPlugin(),
   ],
