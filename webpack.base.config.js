@@ -98,11 +98,11 @@ module.exports = {
     // https://www.cnblogs.com/zhishaofei/p/8590627.html
     new webpack.HashedModuleIdsPlugin(),
     // http://webpack.wuhaolin.cn/3%E5%AE%9E%E6%88%98/3-14%E6%9E%84%E5%BB%BA%E7%A6%BB%E7%BA%BF%E5%BA%94%E7%94%A8.html
-    new ServiceWorkerWebpackPlugin({
-      // 自定义的 sw.js 文件所在路径
-      // ServiceWorkerWebpackPlugin 会把文件列表注入到生成的 sw.js 中
-      entry: path.join(__dirname, 'sw.js'),
-    }),
+    // new ServiceWorkerWebpackPlugin({
+    //   // 自定义的 sw.js 文件所在路径
+    //   // ServiceWorkerWebpackPlugin 会把文件列表注入到生成的 sw.js 中
+    //   entry: path.join(__dirname, 'sw.js'),
+    // }),
     new HappyPack({
       // 用唯一的标识符 id 来代表当前的 HappyPack 是用来处理一类特定的文件
       id: 'babel',
@@ -112,6 +112,7 @@ module.exports = {
       threadPool: happyThreadPool,
       // ... 其它配置项
     }),
+    new webpack.optimize.ModuleConcatenationPlugin(),
     // new NameAllModulesPlugin(),
   ],
   // 参数说明：https://imweb.io/topic/5b66dd601402769b60847149
